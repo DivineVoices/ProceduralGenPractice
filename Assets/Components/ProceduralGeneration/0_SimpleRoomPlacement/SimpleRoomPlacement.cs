@@ -1,6 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using System.Threading;
+using UnityEditor.Overlays;
 using UnityEngine;
 using VTools.Grid;
 using VTools.ScriptableObjectDatabase;
@@ -31,8 +32,8 @@ namespace Components.ProceduralGeneration.SimpleRoomPlacement
 
                 _tempRect.height = RandomService.Range(_roomMinSize.x, _roomMaxSize.x);
                 _tempRect.width = RandomService.Range(_roomMinSize.y, _roomMaxSize.y);
-                _tempRect.x = RandomService.Range(0, 63);
-                _tempRect.y = RandomService.Range(0, 63);
+                _tempRect.x = RandomService.Range(0, Grid.Width - _tempRect.width);
+                _tempRect.y = RandomService.Range(0, Grid.Lenght - _tempRect.height);
 
                 if (!CanPlaceRoom(_tempRect, 1)) 
                     continue;
@@ -51,46 +52,23 @@ namespace Components.ProceduralGeneration.SimpleRoomPlacement
             // Final ground building.
             BuildGround();
         }
-        
-        private void BuildGround()
+
+        private void GetRoomPath(Vector2Int center1, Vector2Int center2)
         {
-            var groundTemplate = ScriptableObjectDatabase.GetScriptableObject<GridObjectTemplate>("Grass");
-            
-            // Instantiate ground blocks
-            for (int x = 0; x < Grid.Width; x++)
+            if (center1.x != center2.x)
             {
-                for (int z = 0; z < Grid.Lenght; z++)
-                {
-                    if (!Grid.TryGetCellByCoordinates(x, z, out var chosenCell))
-                    {
-                        Debug.LogError($"Unable to get cell on coordinates : ({x}, {z})");
-                        continue;
-                    }
-                    
-                    GridGenerator.AddGridObjectToCell(chosenCell, groundTemplate, false);
-                }
+                int difference = center2.x - center1.x;
             }
         }
 
-        private void PlaceRoom(RectInt room)
+        private void CreateDogLegPath(Vector2Int center1, Vector2Int center2)
         {
-            for (int ix = room.xMin; ix < room.xMax; ix++)
-            {
-                for (int iy = room.yMin; iy < room.yMax; iy++)
-                {
-                    if (!Grid.TryGetCellByCoordinates(ix, iy, out var cell))
-                        continue;
+            bool horizontalFirst = RandomService.Chance(0.5f);
 
-                    AddTileToCell(cell, ROOM_TILE_NAME, true);
-                }
+            if (horizontalFirst) {
+                //CreateHorizontalCorridor(center1.x, center2.y)
             }
         }
-        private Vector2Int GetRoomCenter(RectInt room)
-        {
-            return new Vector2Int(
-                room.x + room.width / 2,
-                room.y + room.height / 2
-            );
-        }
+
     }
 }

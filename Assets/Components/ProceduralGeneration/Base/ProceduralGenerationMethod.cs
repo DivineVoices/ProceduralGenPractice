@@ -10,7 +10,7 @@ namespace Components.ProceduralGeneration
 {
     public abstract class ProceduralGenerationMethod : ScriptableObject
     {
-        [Header("Generation")] 
+        [Header("Generation")]
         [SerializeField] protected int _maxSteps = 1000;
 
         // Injected at runtime, not serialized
@@ -19,7 +19,7 @@ namespace Components.ProceduralGeneration
         [NonSerialized] private CancellationTokenSource _cancellationTokenSource;
 
         protected VTools.Grid.Grid Grid => GridGenerator.Grid;
-        
+
         protected const string ROOM_TILE_NAME = "Room";
         protected const string CORRIDOR_TILE_NAME = "Corridor";
         protected const string GRASS_TILE_NAME = "Grass";
@@ -28,7 +28,7 @@ namespace Components.ProceduralGeneration
         protected const string SAND_TILE_NAME = "Sand";
 
         // -------------------------------------- BASE ----------------------------------------------------
-        
+
         public void Initialize(ProceduralGridGenerator gridGenerator, RandomService randomService)
         {
             GridGenerator = gridGenerator;
@@ -51,7 +51,7 @@ namespace Components.ProceduralGeneration
             {
                 // Stay on the main thread to safely manipulate Unity objects
                 await UniTask.SwitchToMainThread();
-                
+
                 await ApplyGeneration(_cancellationTokenSource.Token);
             }
             catch (OperationCanceledException)
@@ -66,9 +66,9 @@ namespace Components.ProceduralGeneration
         }
 
         protected abstract UniTask ApplyGeneration(CancellationToken cancellationToken);
-        
+
         // -------------------------------------- HELPERS ----------------------------------------------------
-        
+
         /// Checks if the room can be placed.
         protected bool CanPlaceRoom(RectInt room, int spacing)
         {
@@ -82,18 +82,60 @@ namespace Components.ProceduralGeneration
             {
                 for (int iy = yMin; iy < yMax; iy++)
                 {
-                    if (Grid.TryGetCellByCoordinates(ix, iy, out var cell) && cell.ContainObject && cell.GridObject.Template.Name == "Room") 
+                    if (Grid.TryGetCellByCoordinates(ix, iy, out var cell) && cell.ContainObject && cell.GridObject.Template.Name == "Room")
                         return false;
                 }
             }
 
             return true;
         }
-        
+
         protected void AddTileToCell(Cell cell, string tileName, bool overrideExistingObjects)
         {
             var tileTemplate = ScriptableObjectDatabase.GetScriptableObject<GridObjectTemplate>(tileName);
             GridGenerator.AddGridObjectToCell(cell, tileTemplate, overrideExistingObjects);
+        }
+
+
+        protected void PlaceRoom(RectInt room)
+        {
+            for (int ix = room.xMin; ix < room.xMax; ix++)
+            {
+                for (int iy = room.yMin; iy < room.yMax; iy++)
+                {
+                    if (!Grid.TryGetCellByCoordinates(ix, iy, out var cell))
+                        continue;
+
+                    AddTileToCell(cell, ROOM_TILE_NAME, true);
+                }
+            }
+        }
+        protected void BuildGround()
+        {
+            var groundTemplate = ScriptableObjectDatabase.GetScriptableObject<GridObjectTemplate>("Grass");
+
+            // Instantiate ground blocks
+            for (int x = 0; x < Grid.Width; x++)
+            {
+                for (int z = 0; z < Grid.Lenght; z++)
+                {
+                    if (!Grid.TryGetCellByCoordinates(x, z, out var chosenCell))
+                    {
+                        Debug.LogError($"Unable to get cell on coordinates : ({x}, {z})");
+                        continue;
+                    }
+
+                    GridGenerator.AddGridObjectToCell(chosenCell, groundTemplate, false);
+                }
+            }
+        }
+
+        protected Vector2Int GetRoomCenter(RectInt room)
+        {
+            return new Vector2Int(
+                room.x + room.width / 2,
+                room.y + room.height / 2
+            );
         }
     }
 }
