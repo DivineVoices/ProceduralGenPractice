@@ -52,7 +52,7 @@ namespace Components.ProceduralGeneration
                 // Stay on the main thread to safely manipulate Unity objects
                 await UniTask.SwitchToMainThread();
 
-                await ApplyGeneration(_cancellationTokenSource.Token);
+                await ApplyGenerationAsync(_cancellationTokenSource.Token);
             }
             catch (OperationCanceledException)
             {
@@ -65,7 +65,7 @@ namespace Components.ProceduralGeneration
             }
         }
 
-        protected abstract UniTask ApplyGeneration(CancellationToken cancellationToken);
+        protected abstract UniTask ApplyGenerationAsync(CancellationToken cancellationToken);
 
         // -------------------------------------- HELPERS ----------------------------------------------------
 

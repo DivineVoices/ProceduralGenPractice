@@ -19,7 +19,7 @@ namespace Components.ProceduralGeneration.SimpleRoomPlacement
         private int _roomCount;
 
 
-        protected override async UniTask ApplyGeneration(CancellationToken cancellationToken)
+        protected override async UniTask ApplyGenerationAsync(CancellationToken cancellationToken)
         {
             _placedRooms = new List<RectInt>();
             _roomCount = 0;
