@@ -9,14 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a3ab342b13b7ea48b355ac2b21fa70f, type: 3}
-  m_Name: CellularAutomata
+  m_Script: {fileID: 11500000, guid: c278b5f16df47ac448c92d248d7af4a9, type: 3}
+  m_Name: Desert
   m_EditorClassIdentifier: 
-  _maxSteps: 100
-  _noiseLevel: 0.5
-  _surroundingTiles:
-  - {x: 62, y: 62}
-  - {x: 63, y: 62}
-  - {x: 62, y: 63}
-  _grassCount: 1
-  _grassRequirement: 4
+  _maxSteps: 10
+  freakquency: 0.03
+  amp: 1
+  octaves: 3
+  lacunarity: 3
+  persistance: 1
+  waterheight: -0.8
+  sandheight: 1
+  grassheight: -0.4
+  rockheight: 1

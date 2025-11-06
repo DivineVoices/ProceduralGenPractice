@@ -18,7 +18,7 @@ namespace Components.ProceduralGeneration
         [NonSerialized] protected RandomService RandomService;
         [NonSerialized] private CancellationTokenSource _cancellationTokenSource;
 
-        protected VTools.Grid.Grid Grid => GridGenerator.Grid;
+        public VTools.Grid.Grid Grid => GridGenerator.Grid;
 
         protected const string ROOM_TILE_NAME = "Room";
         protected const string CORRIDOR_TILE_NAME = "Corridor";

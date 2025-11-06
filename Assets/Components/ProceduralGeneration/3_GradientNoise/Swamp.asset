@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c278b5f16df47ac448c92d248d7af4a9, type: 3}
+  m_Name: Swamp
+  m_EditorClassIdentifier: 
+  _maxSteps: 10
+  freakquency: 0.03
+  amp: 1
+  octaves: 3
+  lacunarity: 3
+  persistance: 1
+  waterheight: -0.8
+  sandheight: 1
+  grassheight: -0.4
+  rockheight: 1
