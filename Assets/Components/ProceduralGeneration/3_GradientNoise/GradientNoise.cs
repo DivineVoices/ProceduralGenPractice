@@ -68,7 +68,7 @@ public class GradientNoise : ProceduralGenerationMethod
                         GridGenerator.AddGridObjectToCell(chosenCell, WaterTemplate, true);
                         break;
                     default:
-                        //GridGenerator.AddGridObjectToCell(chosenCell, WaterTemplate, true);
+                        GridGenerator.AddGridObjectToCell(chosenCell, WaterTemplate, true);
                         break;
 
                 }

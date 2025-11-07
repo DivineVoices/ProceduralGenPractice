@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxSteps: 10
   freakquency: 0.03
-  amp: 1
+  amp: 1.5
   octaves: 3
   lacunarity: 3
   persistance: 1
-  waterheight: -0.8
-  sandheight: 1
-  grassheight: -0.4
-  rockheight: 1
+  waterheight: 1
+  sandheight: -0.95
+  grassheight: 1
+  rockheight: 0.66
