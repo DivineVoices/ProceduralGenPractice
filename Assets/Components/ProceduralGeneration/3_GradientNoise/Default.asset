@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Default
   m_EditorClassIdentifier: 
   _maxSteps: 10
-  freakquency: 0.03
+  freakquency: 0.015
   amp: 1
   octaves: 3
   lacunarity: 3
   persistance: 1
-  waterheight: -0.8
-  sandheight: 1
-  grassheight: -0.4
-  rockheight: 1
+  waterheight: -0.94
+  sandheight: -0.39
+  grassheight: 0.3
+  rockheight: 0.88

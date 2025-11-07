@@ -20,5 +20,5 @@ MonoBehaviour:
   persistance: 1
   waterheight: -0.8
   sandheight: 1
-  grassheight: -0.4
+  grassheight: -0.2
   rockheight: 1
