@@ -34,4 +34,16 @@ For images :
 
 For links : 
 - [Download UnityHub](https://unity.com/download)
+
+For code snippets : 
+```csharp
+private readonly Cell[,] _gridArray;       
+private readonly List<Cell> _cells;
+
+public Vector3 OriginPosition { get; }
+public float CellSize { get; }
+public int Width { get; }
+public int Lenght { get; }
+public IReadOnlyList<Cell> Cells => _cells;
+```
 -->
