@@ -10,6 +10,11 @@ Within this code you can find 4 different Generation algorithms : Simple Room Pl
 ## NoiseMaps
 The most complete generation process in this tool. Uses the 
 
+<!-- GamePlan : 
+Explain the program
+Talk about the use of each method
+Talk about their parameters if applicable
+Show examples -->
 
 <!-- Comments are here, below is some format info -->
 
