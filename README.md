@@ -14,6 +14,7 @@ The most complete generation process in this tool. Uses the
 Explain the program
 Talk about the use of each method
 Talk about their parameters if applicable
+Recommended Settings/Scriptables if applicable
 Show examples -->
 
 <!-- Comments are here, below is some format info -->

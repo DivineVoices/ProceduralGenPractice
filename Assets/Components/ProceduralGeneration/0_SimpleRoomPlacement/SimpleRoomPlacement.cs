@@ -15,6 +15,10 @@ namespace Components.ProceduralGeneration.SimpleRoomPlacement
         [SerializeField] private int _maxRooms = 10;
         [SerializeField] private Vector2Int _roomMinSize;
         [SerializeField] private Vector2Int _roomMaxSize;
+
+        [Header("Path Settings")]
+        [SerializeField] private bool _generatePaths = true;
+
         private List<RectInt> _placedRooms;
         private int _roomCount;
 
@@ -25,7 +29,6 @@ namespace Components.ProceduralGeneration.SimpleRoomPlacement
             _roomCount = 0;
             for (int i = 0; i < _maxSteps; i++)
             {
-                // Check for cancellation
                 cancellationToken.ThrowIfCancellationRequested();
 
                 RectInt _tempRect = new RectInt();
@@ -35,7 +38,7 @@ namespace Components.ProceduralGeneration.SimpleRoomPlacement
                 _tempRect.x = RandomService.Range(0, Grid.Width - _tempRect.width);
                 _tempRect.y = RandomService.Range(0, Grid.Lenght - _tempRect.height);
 
-                if (!CanPlaceRoom(_tempRect, 1)) 
+                if (!CanPlaceRoom(_tempRect, 1))
                     continue;
 
                 PlaceRoom(_tempRect);
@@ -45,12 +48,28 @@ namespace Components.ProceduralGeneration.SimpleRoomPlacement
                 if (_roomCount >= _maxRooms)
                     break;
 
-                // Waiting between steps to see the result.
-                await UniTask.Delay(GridGenerator.StepDelay, cancellationToken : cancellationToken);
+                await UniTask.Delay(GridGenerator.StepDelay, cancellationToken: cancellationToken);
             }
 
-            // Final ground building.
+            if (_generatePaths)
+            {
+                ConnectRoomsWithCorridors();
+            }
+
             BuildGround();
+        }
+
+        private void ConnectRoomsWithCorridors()
+        {
+            if (_placedRooms.Count < 2) return;
+
+            for (int i = 0; i < _placedRooms.Count - 1; i++)
+            {
+                Vector2Int center1 = GetRoomCenter(_placedRooms[i]);
+                Vector2Int center2 = GetRoomCenter(_placedRooms[i + 1]);
+
+                CreateDogLegPath(center1, center2);
+            }
         }
 
         private void GetRoomPath(Vector2Int center1, Vector2Int center2)
@@ -58,6 +77,12 @@ namespace Components.ProceduralGeneration.SimpleRoomPlacement
             if (center1.x != center2.x)
             {
                 int difference = center2.x - center1.x;
+                CreateHorizontalCorridor(center1.x, center2.x, center1.y);
+            }
+            if (center1.y != center2.y)
+            {
+                int difference = center2.y - center1.y;
+                CreateVerticalCorridor(center1.y, center2.y, center2.x);
             }
         }
 
@@ -65,10 +90,44 @@ namespace Components.ProceduralGeneration.SimpleRoomPlacement
         {
             bool horizontalFirst = RandomService.Chance(0.5f);
 
-            if (horizontalFirst) {
-                //CreateHorizontalCorridor(center1.x, center2.y)
+            if (horizontalFirst)
+            {
+                CreateHorizontalCorridor(center1.x, center2.x, center1.y);
+                CreateVerticalCorridor(center1.y, center2.y, center2.x);
+            }
+            else
+            {
+                CreateVerticalCorridor(center1.y, center2.y, center1.x);
+                CreateHorizontalCorridor(center1.x, center2.x, center2.y);
             }
         }
 
+        private void CreateHorizontalCorridor(int xStart, int xEnd, int y)
+        {
+            int startX = Mathf.Min(xStart, xEnd);
+            int endX = Mathf.Max(xStart, xEnd);
+
+            for (int x = startX; x <= endX; x++)
+            {
+                if (Grid.TryGetCellByCoordinates(x, y, out var cell))
+                {
+                    AddTileToCell(cell, CORRIDOR_TILE_NAME, true);
+                }
+            }
+        }
+
+        private void CreateVerticalCorridor(int yStart, int yEnd, int x)
+        {
+            int startY = Mathf.Min(yStart, yEnd);
+            int endY = Mathf.Max(yStart, yEnd);
+
+            for (int y = startY; y <= endY; y++)
+            {
+                if (Grid.TryGetCellByCoordinates(x, y, out var cell))
+                {
+                    AddTileToCell(cell, CORRIDOR_TILE_NAME, true);
+                }
+            }
+        }
     }
 }

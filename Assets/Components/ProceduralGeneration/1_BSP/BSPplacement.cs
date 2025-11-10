@@ -6,7 +6,7 @@ using System.Threading;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Procedural Generation Method/BSP")]    
+[CreateAssetMenu(menuName = "Procedural Generation Method/BSP")]
 public class BSPplacement : ProceduralGenerationMethod
 {
     [Header("Room Parameters")]
@@ -27,7 +27,8 @@ public class BSPplacement : ProceduralGenerationMethod
             new RectInt(0, 0, Grid.Width, Grid.Lenght),
             Grid,
             RandomService,
-            _roomMinSize
+            _roomMinSize,
+            _roomMaxSize
         );
 
         _nodes.Add(root);
@@ -36,16 +37,22 @@ public class BSPplacement : ProceduralGenerationMethod
         while (didSplit && _nodes.Count < _maxRooms)
         {
             didSplit = false;
-            for (int i = 0; i < _nodes.Count; i++)
-            {
-                if (_nodes[i].IsLeaf && _nodes[i].CanSplit())
-                {
-                    _nodes[i].Split();
-                    _nodes.Add(_nodes[i]._child1);
-                    _nodes.Add(_nodes[i]._child2);
-                    didSplit = true;
+            List<BSPNode> nodesToProcess = new List<BSPNode>(_nodes);
 
-                    await UniTask.Delay(GridGenerator.StepDelay, cancellationToken: cancellationToken);
+            foreach (var node in nodesToProcess)
+            {
+                if (node.IsLeaf && node.CanSplit() && _nodes.Count < _maxRooms)
+                {
+                    var children = node.Split();
+                    if (children.Count > 0)
+                    {
+                        _nodes.AddRange(children);
+                        didSplit = true;
+
+                        if (_nodes.Count >= _maxRooms) break;
+
+                        await UniTask.Delay(GridGenerator.StepDelay, cancellationToken: cancellationToken);
+                    }
                 }
             }
         }
@@ -53,12 +60,16 @@ public class BSPplacement : ProceduralGenerationMethod
         foreach (var node in _nodes)
         {
             if (node.IsLeaf)
-                PlaceRoom(node.RoomBounds);
+            {
+                if (CanPlaceRoom(node.RoomBounds, 1))
+                {
+                    PlaceRoom(node.RoomBounds);
+                }
+            }
         }
 
         BuildGround();
     }
-
 
     private void CheckNodes(BSPNode node)
     {

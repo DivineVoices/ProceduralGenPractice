@@ -16,3 +16,4 @@ MonoBehaviour:
   _maxRooms: 10
   _roomMinSize: {x: 5, y: 5}
   _roomMaxSize: {x: 18, y: 18}
+  _generatePaths: 1
