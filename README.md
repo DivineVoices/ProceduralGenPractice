@@ -1,5 +1,5 @@
 ## Procedural Gen Practice Tool
-The Proecudral Gen Practice Tool was a 4 day attempt to make a simple room generator using Unity. This tool is free to use by all, and has a few features to customize your room generation.
+The Proecudral Gen Practice Tool was a 4 day attempt to make a simple room generator using Unity. This tool is free to use by all, and has a few features to customize some room generation.
 This tool uses Unity 6000.1.16f1 make sure to install this version before use.
 
 Within this code you can find 4 different Generation algorithms : Simple Room Placement, Binary Space Partioning, Cellular Automata, and NoiseMaps.
@@ -23,8 +23,8 @@ This algorithm places random rooms within a grid of a random size between its [M
 
 <img width="445" height="184" alt="image" src="https://github.com/user-attachments/assets/29033c5b-0793-4163-bf60-eed8b96efbd6" />
 SRP PARAMETERS : 
-- ## Max Steps :
-- ## MaxSize/MinSize :
+## Max Steps :
+## MaxSize/MinSize :
 
 
 ## Binary Space Partioning
