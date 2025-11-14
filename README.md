@@ -44,8 +44,35 @@ Vector2Int : The minimum Width and Length that a placed room can be.
 #### Generate Paths
 Bool : When on, paths will generate and connect the randomly generated rooms.
 
-
 ## Binary Space Partioning
+A more structured approach to room generation that recursively splits the space.
+
+### HOW IT WORKS : 
+
+This algorithm works by recursively dividing the available space into smaller partitions using binary space partitioning. Each split creates two children nodes, and this process continues until the desired [Children Count](#children-count) is reached or the partitions become too small. Rooms are then generated within the leaf nodes of this partition tree.
+
+**Note:** This implementation is currently a little broken and may not always produce optimal results, but it demonstrates the core BSP concept.
+
+<img width="438" height="153" alt="image" src="https://github.com/user-attachments/assets/782c465b-5b4e-43f6-9fc3-3fe686afdd48" />
+
+### BSP PARAMETERS : 
+#### Max Steps
+Int : The amount of times the code loops to try to place a room, if this number of loops is exceeded, generation stops.
+
+#### Max Rooms
+Int : The maximum amount of rooms that can be placed, once that number is attained, generation stops.
+
+#### Children Count
+Int : The number of child partitions to create through recursive splitting. Higher values create more but smaller rooms, while lower values create fewer but larger rooms.
+
+#### Max Size
+Vector2Int : The maximum Width and Length that a placed room can be.
+
+#### Min Size
+Vector2Int : The minimum Width and Length that a placed room can be.
+
+
+
 ## Cellular Automata
 ## NoiseMaps
 The most complete generation process in this tool. Uses the 
