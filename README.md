@@ -7,8 +7,9 @@ Within this code you can find 4 different Generation algorithms : Simple Room Pl
 ## General Usage
 After loading the project, make your way to Components > ProceduralGeneration
 Here choose which generation you'd like to use for the simulation.
+If you want to know more about a particular generation, navigate here.
 
-NAVIGATION :
+### NAVIGATION :
 - [Simple Room Placement](#Simple-Room-Placement)
 - [Binary Space Partioning](#Binary-Space-Partioning)
 - [Cellular Automata](#Cellular-Automata)
