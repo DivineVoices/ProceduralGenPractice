@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c278b5f16df47ac448c92d248d7af4a9, type: 3}
-  m_Name: Default
+  m_Name: Archipelago
   m_EditorClassIdentifier: 
   _maxSteps: 10
   freakquency: 0.015

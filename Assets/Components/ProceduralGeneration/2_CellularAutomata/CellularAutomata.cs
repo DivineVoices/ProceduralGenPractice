@@ -16,8 +16,8 @@ using VTools.ScriptableObjectDatabase;
 public class CellularAutomata : ProceduralGenerationMethod
 {
     [SerializeField] private float _noiseLevel;
-    [SerializeField] private List<Vector2Int> _surroundingTiles;
-    [SerializeField] private int _grassCount;
+    [NonSerialized] private List<Vector2Int> _surroundingTiles;
+    [NonSerialized] private int _grassCount;
     [SerializeField] private int _grassRequirement = 4;
     [SerializeField] private bool _generateWater; //If _grassCount < _grassRequirement, Tile = Water
     protected override async UniTask ApplyGenerationAsync(CancellationToken cancellationToken)
