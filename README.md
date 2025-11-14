@@ -4,7 +4,29 @@ This tool uses Unity 6000.1.16f1 make sure to install this version before use.
 
 Within this code you can find 4 different Generation algorithms : Simple Room Placement, Binary Space Partioning, Cellular Automata, and NoiseMaps.
 
+## General Usage
+After loading the project, make your way to Components > ProceduralGeneration
+Here choose which generation you'd like to use for the simulation.
+
+NAVIGATION :
+- [Simple Room Placement](#Simple-Room-Placement)
+- [Binary Space Partioning](#Binary-Space-Partioning)
+- [Cellular Automata](#Cellular-Automata)
+- [NoiseMaps](#NoiseMaps)
+
+
 ## Simple Room Placement
+The simplest of the algorithms (Of course)
+
+HOW IT WORKS : 
+This algorithm places random rooms within a grid of a random size between its [MaxSize/MinSize](#MaxSize/MinSize).
+
+<img width="445" height="184" alt="image" src="https://github.com/user-attachments/assets/29033c5b-0793-4163-bf60-eed8b96efbd6" />
+SRP PARAMETERS : 
+- Max Steps :
+- # MaxSize/MinSize :
+
+
 ## Binary Space Partioning
 ## Cellular Automata
 ## NoiseMaps
