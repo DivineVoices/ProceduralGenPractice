@@ -24,8 +24,9 @@ This algorithm places random rooms within a grid of a random size between its [M
 <img width="445" height="184" alt="image" src="https://github.com/user-attachments/assets/29033c5b-0793-4163-bf60-eed8b96efbd6" />
 
 SRP PARAMETERS : 
-### Max Steps :
-### MaxSize/MinSize :
+#### Max Steps :
+#### MaxSize :
+#### MinSize :
 
 
 ## Binary Space Partioning
