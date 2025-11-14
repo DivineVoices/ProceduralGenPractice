@@ -71,9 +71,27 @@ Vector2Int : The maximum Width and Length that a placed room can be.
 #### Min Size
 Vector2Int : The minimum Width and Length that a placed room can be.
 
-
-
 ## Cellular Automata
+A organic, natural-looking generation method that uses cellular automata rules to create cave-like structures.
+
+### HOW IT WORKS : 
+
+This algorithm starts by randomly filling the grid with ground tiles based on the [Noise Level](#noise-level). It then applies cellular automata rules over multiple iterations ([Max Steps](#max-steps)) where each tile's state changes based on its neighbors. The [Grass Requirement](#grass-requirement) determines how many surrounding grass tiles are needed for a tile to become or remain grass. When [Generate Water](#generate-water) is enabled, tiles that don't meet the grass conditions can become water tiles, creating natural-looking pools and rivers.
+
+<img width="434" height="108" alt="image" src="https://github.com/user-attachments/assets/9380e041-60c9-46da-b08f-34c54a066dba" />
+
+### CELLULAR AUTOMATA PARAMETERS : 
+#### Max Steps
+Int : The number of iterations the cellular automata rules are applied. More steps create smoother, more refined terrain patterns.
+
+#### Noise Level
+Float : Controls the initial density of ground tiles at the start of generation. Higher values create more initial ground coverage.
+
+#### Grass Requirement
+Int : The number of surrounding grass tiles required for a tile to become or remain grass. Higher values create more sparse, isolated grass patches.
+
+#### Generate Water
+Bool : When enabled, tiles that don't meet the grass requirements will become water tiles instead of remaining empty, creating natural water features.
 ## NoiseMaps
 The most complete generation process in this tool. Uses the 
 
