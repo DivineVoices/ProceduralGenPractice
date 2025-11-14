@@ -19,7 +19,7 @@ NAVIGATION :
 The simplest of the algorithms (Of course)
 
 
-###HOW IT WORKS : 
+### HOW IT WORKS : 
 
 This algorithm places random rooms within a grid of a random size between its [MaxSize](#max-size) and [MinSize](#min-size).
 If these randomly placed rooms overlap an already placed room, the overlapping room is not placed, and it instead restarts the placement process, until either [Max Steps](#max-steps) is hit, or [Max Rooms](#max-rooms) is hit.
