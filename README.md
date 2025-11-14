@@ -7,6 +7,9 @@ Within this code you can find 4 different Generation algorithms : Simple Room Pl
 ## General Usage
 After loading the project, make your way to Components > ProceduralGeneration
 Here choose which generation you'd like to use for the simulation.
+When you've chosen, click on the ProceduralGridGenerator GameObject, and modify its "Generation Method" Parameter with the scriptableObject of your choosing
+Feel free to modify the Cellsize, GridX and GridY values, aswell as the seed.
+
 If you want to know more about a particular generation, navigate here.
 
 ### NAVIGATION :
@@ -44,6 +47,9 @@ Vector2Int : The minimum Width and Length that a placed room can be.
 #### Generate Paths
 Bool : When on, paths will generate and connect the randomly generated rooms.
 
+<img width="496" height="495" alt="image" src="https://github.com/user-attachments/assets/12a3d372-d7e6-4b53-8cfe-b3a79c27f009" />
+
+
 ## Binary Space Partioning
 A more structured approach to room generation that recursively splits the space.
 
@@ -71,6 +77,9 @@ Vector2Int : The maximum Width and Length that a placed room can be.
 #### Min Size
 Vector2Int : The minimum Width and Length that a placed room can be.
 
+<img width="494" height="495" alt="image" src="https://github.com/user-attachments/assets/5144f873-dc4a-4951-9a1a-94aa73767eb8" />
+
+
 ## Cellular Automata
 A organic, natural-looking generation method that uses cellular automata rules to create cave-like structures.
 
@@ -92,8 +101,56 @@ Int : The number of surrounding grass tiles required for a tile to become or rem
 
 #### Generate Water
 Bool : When enabled, tiles that don't meet the grass requirements will become water tiles instead of remaining empty, creating natural water features.
+
+<img width="492" height="495" alt="image" src="https://github.com/user-attachments/assets/631dd7c2-1431-4bd4-a9bc-787b3c779358" />
+
+
 ## NoiseMaps
-The most complete generation process in this tool. Uses the 
+The most advanced and complete generation process in this tool, using Simplex noise to create realistic, biome-based terrain.
+
+### HOW IT WORKS : 
+
+This algorithm generates terrain heightmaps using multi-octave Simplex noise, controlled by parameters like [Frequency](#frequency), [Amplitude](#amplitude), [Octaves](#octaves), [Lacunarity](#lacunarity), and [Persistence](#persistence). The resulting noise values are then interpreted into different terrain types based on height thresholds: [Water Height](#water-height), [Sand Height](#sand-height), [Grass Height](#grass-height), and [Rock Height](#rock-height). Multiple iterations ([Max Steps](#max-steps)) can be applied to refine the terrain generation.
+
+**Pre-configured Biomes:** This generator includes three scriptable objects for quick biome simulation:
+- **Desert:** Low water, expansive sand and small rock formations
+- **Swamp:** High water levels with lots of grass patches
+- **Archipelago:** Island chains surrounded by water with varied terrain heights
+
+<img width="425" height="310" alt="image" src="https://github.com/user-attachments/assets/1c05025e-e746-493a-a00b-9fb7a6a6271d" />
+
+### NOISEMAPS PARAMETERS : 
+#### Max Steps
+Int : The number of refinement iterations applied to the generated terrain. More steps can create smoother transitions and more detailed features.
+
+#### Frequency
+Float : Controls the scale of the noise pattern. Higher frequency creates more frequent, smaller features, a zoom effect.
+
+#### Amplitude
+Float : Controls the intensity or height variation of the noise. Higher amplitude creates more dramatic terrain elevation changes.
+
+#### Octaves
+Int : The number of layers of noise combined together. More octaves create more detailed and complex terrain.
+
+#### Lacunarity
+Float : Controls how the frequency changes between octaves. Higher values create more detailed high-frequency content.
+
+#### Persistence
+Float : Controls how the amplitude changes between octaves. Higher values maintain more influence from higher octaves.
+
+#### Water Height
+Float : The height threshold above which tiles become water. Higher values create more water coverage.
+
+#### Sand Height
+Float : The height threshold for sand tiles, typically between water and grass levels.
+
+#### Grass Height
+Float : The height threshold for grass tiles, typically between sand and rock levels.
+
+#### Rock Height
+Float : The height threshold below which tiles become rock. Lower values create more mountainous terrain.
+
+<img width="497" height="496" alt="image" src="https://github.com/user-attachments/assets/5e55439a-26c7-4b6c-8fe7-ec8f2fb270dc" />
 
 <!-- GamePlan : 
 Explain the program
