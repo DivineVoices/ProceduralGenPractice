@@ -21,15 +21,25 @@ The simplest of the algorithms (Of course)
 HOW IT WORKS : 
 This algorithm places random rooms within a grid of a random size between its [MaxSize](#max-size) and [MinSize](#min-size).
 If these randomly placed rooms overlap an already placed room, the overlapping room is not placed, and it instead restarts the placement process, until either [Max Steps](#max-steps) is hit, or [Max Rooms](#max-rooms) is hit.
+Additionally you can connect the rooms by turning on the [Generate Paths](#generate-paths) option.
 
 <img width="445" height="184" alt="image" src="https://github.com/user-attachments/assets/29033c5b-0793-4163-bf60-eed8b96efbd6" />
 
 ### SRP PARAMETERS : 
 #### Max Steps
+Int : The amount of times the code loops to try to place a room, if this number of loops is exceeded, generation stops.
+
 #### Max Rooms
+Int : The maximum amount of rooms that can be placed, once that number is attained, generation stops.
+
 #### Max Size
+Vector2Int : The maximum Width and Length that a placed room can be.
+
 #### Min Size
+Vector2Int : The minimum Width and Length that a placed room can be.
+
 #### Generate Paths
+Bool : When on, paths will generate and connect the randomly generated rooms.
 
 
 ## Binary Space Partioning
